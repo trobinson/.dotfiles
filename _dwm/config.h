@@ -25,7 +25,7 @@ static const Rule rules[] = {
 
 /* layout(s) */
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -48,6 +48,11 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenuFont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvtc", NULL };
+static const char *playpausecmd[] = { "ncmpcpp", "toggle", "", NULL};
+static const char *volumeupcmd[] = { "ncmpcpp", "volume", "+1", NULL};
+static const char *volumedowncmd[] = { "ncmpcpp", "volume", "-1", NULL};
+static const char *nexttrackcmd[] = { "ncmpcpp", "next", "", NULL};
+static const char *prevtrackcmd[] = { "ncmpcpp", "prev", "", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -82,6 +87,11 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { 0,                      0x1008ff11,      spawn, {.v = volumedowncmd } },
+    { 0,                      0x1008ff13,      spawn, {.v = volumeupcmd } },
+    { 0,                      0x1008ff14,      spawn, {.v = playpausecmd } },
+    { 0,                      0x1008ff16,      spawn, {.v = prevtrackcmd } },
+    { 0,                      0x1008ff17,      spawn, {.v = nexttrackcmd } },
 };
 
 /* button definitions */
