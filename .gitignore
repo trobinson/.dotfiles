@@ -1,0 +1,8 @@
+*.pyc
+.netrwhist
+_vim/bundle
+.git
+*.o
+*.hi
+*.errors
+_xmonad/xmonad-x86_64-linux

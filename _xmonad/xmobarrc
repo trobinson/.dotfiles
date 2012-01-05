@@ -1,0 +1,16 @@
+Config { font = "xft:dina-10"
+       , bgColor = "#1c1c1c"
+       , fgColor = "#d0d0d0"
+       , position = Top
+       , lowerOnStart = True
+       , commands = [ Run Weather "NZWN" ["-t", "<tempC>°C","-L","12","-H","20","--normal","#afdf5f","--high","#df8787","--low","#afdfff"] 36000
+                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Date "%A %d %B %I:%M%p" "date" 300
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ <fc=#767676>|</fc> %NZWN% <fc=#767676>|</fc> %date%"
+       }

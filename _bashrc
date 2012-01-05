@@ -1,0 +1,37 @@
+#Check for an interactive session
+[ -z "$PS1" ] && return
+
+#enable completion with sudo
+complete -cf sudo
+complete -cf man
+
+#Aliases
+alias ls='ls -h --color=auto'
+alias la='ls -A'
+alias ll='ls -l'
+alias grep='grep --color'
+
+alias rp='rsync -P'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias pm='sudo packer-color'
+
+alias srv='ssh 192.168.0.6'
+
+alias off='sudo poweroff'
+alias reboot='sudo reboot'
+
+#Variables
+export EDITOR=vim
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
+export JAVA_FONTS=/usr/share/fonts/TTF
+
+#Prompt
+if [ -n "$SSH_CONNECTION" ]; then
+    PS1='\W \[\033[1;30m\]>\[\033[0;34m\]>\[\033[1;34m\]>\[\033[m\] '
+else
+    PS1='\W \[\033[1;30m\]>\[\033[0;32m\]>\[\033[1;32m\]>\[\033[m\] '
+fi
