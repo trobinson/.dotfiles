@@ -17,6 +17,7 @@ Bundle 'bdd/vim-scala'
 " vim-scripts repos
 Bundle 'xoria256.vim'
 Bundle 'peaksea'
+Bundle 'Markdown'
 " non github repos
 
 filetype plugin indent on     " required! 
@@ -35,6 +36,7 @@ set t_Co=256
 set mouse=a
 set viminfo=""
 set background=dark
+set cm=blowfish
 syntax enable
 colorscheme xoria256
 
