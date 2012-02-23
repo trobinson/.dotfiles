@@ -15,6 +15,7 @@ urxvtd -q -o -f
 ~/.fehbg
 udiskie &
 mpd ~/.mpd/mpd.conf
+mpdscribble 
 
 while true; do
     xsetroot -name "$(date +"%A %d %B %I:%M%p")"
