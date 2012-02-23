@@ -17,7 +17,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias pm='sudo packer-color'
+alias pacman='sudo pacman-color'
+alias packer='sudo packer-color'
 
 alias srv='ssh 192.168.0.6'
 
@@ -28,6 +29,12 @@ alias reboot='sudo reboot'
 export EDITOR=vim
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
 export JAVA_FONTS=/usr/share/fonts/TTF
+
+function backup() 
+{
+    rsync -Pavzh --delete --ignore-existing /mnt/videos/ /media/Backup/videos/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
+}
+
 
 #Prompt
 if [ -n "$SSH_CONNECTION" ]; then
