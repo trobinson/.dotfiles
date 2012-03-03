@@ -33,6 +33,7 @@ export JAVA_FONTS=/usr/share/fonts/TTF
 function backup() 
 {
     rsync -Pavzh --delete --ignore-existing /mnt/videos/ /media/Backup/videos/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
+    rsync -Pavzh --delete --ignore-existing /mnt/storage/ /media/Backup/storage/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
 }
 
 
