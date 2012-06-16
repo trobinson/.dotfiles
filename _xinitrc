@@ -11,15 +11,4 @@ xrdb ~/.Xresources
 xsetroot -cursor_name left_ptr
 xset +fp /usr/share/fonts/local
 
-urxvtd -q -o -f
-~/.fehbg
-udiskie &
-mpd ~/.mpd/mpd.conf
-mpdscribble 
-
-while true; do
-    xsetroot -name "$(date +"%A %d %B %I:%M%p")"
-    sleep 1
-done &
-
-exec dwm
+exec ck-launch-session dbus-launch openbox-session
