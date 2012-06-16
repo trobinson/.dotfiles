@@ -18,7 +18,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 alias pacman='sudo pacman-color'
-alias packer='sudo packer-color'
+alias packer='packer-color'
 
 alias srv='ssh 192.168.0.6'
 
