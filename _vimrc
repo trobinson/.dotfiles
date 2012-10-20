@@ -43,6 +43,7 @@ colorscheme xoria256
 autocmd FileType html :setlocal sw=2 ts=2 sts=2
 
 au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.gradle setf groovy
 
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = 'latex'
