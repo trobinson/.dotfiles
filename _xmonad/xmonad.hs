@@ -1,85 +1,67 @@
+import qualified Data.Map as M
+
+import System.IO (hPutStrLn)
+
 import XMonad
-
-import XMonad.Actions.CopyWindow(copyToAll, killAllOtherCopies)
-
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks(avoidStruts, manageDocks)
-import XMonad.Hooks.ManageHelpers(isFullscreen, doFullFloat)
+import XMonad.Hooks.ICCCMFocus
+import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
+import XMonad.Layout.NoBorders
+import XMonad.Layout.ResizableTile
+import XMonad.Util.Run
 
-import XMonad.Layout.NoBorders(smartBorders)
-
-import XMonad.Util.CustomKeys(customKeys)
-import XMonad.Util.Run(spawnPipe)
-
-import System.IO(hPutStrLn)
-
-
-layoutSymbols "Tall"        = "|"
-layoutSymbols "Mirror Tall" = "-"
-layoutSymbols "Full"        = "*"
-layoutSymbols m             = id m
-
-
-main :: IO ()
 main = do
-    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
+    dzen <- spawnPipe myDzenBar
     xmonad $ defaultConfig
-        { terminal              = "urxvtc"
-        , workspaces            = map show [1..5]
-        , modMask               = mod4Mask
-        , normalBorderColor     = "#1c1c1c"
-        , focusedBorderColor    = "#afdf5f"
-        , keys                  = customKeys delkeys inskeys
-        , logHook               = myLogHook xmproc
-        , layoutHook            = smartBorders . avoidStruts  $  layoutHook defaultConfig 
-        , manageHook            = manageHook defaultConfig <+> myManageHook
-        , startupHook           = setWMName "LG3D"
+        { terminal              = myTerminal
+        , workspaces            = myWorkspaces
+        , modMask               = myModMask
+
+        , keys                  = \c -> myKeys c `M.union` keys defaultConfig c
+        
+        , layoutHook            = myLayoutHook
+        , logHook               = myLogHook dzen >> setWMName "LG3D" >> takeTopFocus
+        
+        , normalBorderColor     = myNormalBorderColor
+        , focusedBorderColor    = myFocusedBorderColor
+        , borderWidth           = myBorderWidth
         }
-        where
-            delkeys :: XConfig l -> [(KeyMask, KeySym)]
-            delkeys XConfig {modMask = modm} = [ (modm, xK_p) ]
 
-            inskeys :: XConfig l -> [((KeyMask, KeySym), X ())]
-            inskeys conf@(XConfig {modMask = modm}) =
-                        [ ((modm, xK_s), windows copyToAll)
-                        -- toggle stickiness of windows ^ and v 
-                        , ((modm .|. shiftMask, xK_s), killAllOtherCopies)
-                        -- change dmenu colors
-                        , ((modm, xK_p), spawn "exe=`dmenu_run -fn dina-10 -nb \\#1c1c1c -nf \\#d0d0d0 -sf \\#dfdf00 -sb \\#1c1c1c`")
-                        -- XF86AudioMute
-                        , ((0 , 0x1008ff12), spawn "ncmpcpp toggle")
-                        -- XF86AudioLowerVolume
-                        , ((0 , 0x1008ff11), spawn "ncmpcpp volume -1")
-                        -- XF86AudioRaiseVolume
-                        , ((0 , 0x1008ff13), spawn "ncmpcpp volume +1")
-                        -- XF86AudioPlay
-                        , ((0 , 0x1008ff14), spawn "ncmpcpp toggle")
-                        -- XF86AudioStop
-                        , ((0 , 0x1008ff15), spawn "ncmpcpp stop")
-                        -- XF86AudioNext
-                        , ((0 , 0x1008ff16), spawn "ncmpcpp next")
-                        -- XF86AudioPrev
-                        , ((0 , 0x1008ff17), spawn "ncmpcpp prev")
-                        -- Display Internet Usage
-                        , ((modm, xK_u), spawn "~/.scripts/usage.py")
-                        ]
-            myManageHook :: ManageHook
-            myManageHook = composeAll 
-                        [ isFullscreen              --> doFullFloat
-                        , className =? "feh"        --> doFloat
-                        , manageDocks
-                        ]
+myDzenBar       = "dzen2 -x '1280' -y '0' -h '20' -w '1320' -ta 'l' -fg '#FFFFFF' -bg '#1b1d1e' -fn 'Envy Code R-10'"
+myBitmapsDir    = "/home/tdr/.dotfiles/_icons"
+myTerminal      = "urxvtc"
+myWorkspaces    = map show [1..9]
+myModMask       = mod4Mask
 
-            myLogHook xmo = dynamicLogWithPP xmobarPP
-                        { ppCurrent         = xmobarColor "#00aaff" "" . wrap ">" "<"
-                        , ppVisible         = wrap "(" ")"
-                        , ppHidden          = id
-                        , ppHiddenNoWindows = id
-                        , ppUrgent          = xmobarColor "#df8787" ""
-                        , ppSep             = xmobarColor "#767676" "" " | "
-                        , ppWsSep           = " "
-                        , ppTitle           = xmobarColor "#afdf5f" "" . shorten 80
-                        , ppLayout          = layoutSymbols 
-                        , ppOutput          = hPutStrLn xmo
-                        }
+myKeys (XConfig {modMask = modm}) = M.fromList $
+    [ ((modm, xK_p), spawn "dmenu_run -nf '#ffffff' -nb '#1b1d1e' -sb '#de935f' -sf '#1b1d1e' -fn 'Envy Code R-10'")
+    , ((0, 0x1008ff11), spawn "amixer set Master 4-")
+    , ((0, 0x1008ff13), spawn "amixer set Master 4+")
+    ]
+
+myLayoutHook    = smartBorders $ avoidStruts $ tiled ||| Mirror tiled ||| Full
+    where tiled = ResizableTall 1 (2/100) (1/2) []
+myLogHook h     = dynamicLogWithPP $ defaultPP
+    { ppCurrent           =   dzenColor "#de935f" "#1B1D1E" . pad
+    , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
+    , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
+    , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
+    , ppUrgent            =   dzenColor "#ff0000" "#1B1D1E" . pad
+    , ppWsSep             =   " "
+    , ppSep               =   "  |  "
+    , ppLayout            =   dzenColor "#de935f" "#1B1D1E" . 
+                                (\x -> case x of
+                                    "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+                                    "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
+                                    "Full"                      ->      "^i(" ++ myBitmapsDir ++ "/full.xbm)"
+                                    {-"Simple Float"              ->      "~"-}
+                                    _                           ->      x
+                                )
+    , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
+    , ppOutput            =   hPutStrLn h
+    }
+
+myNormalBorderColor     = "#000000"
+myFocusedBorderColor    = "#343434"
+myBorderWidth           = 1
