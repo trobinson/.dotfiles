@@ -10,5 +10,13 @@ fi
 xrdb ~/.Xresources
 xsetroot -cursor_name left_ptr
 xset +fp /usr/share/fonts/local
+xrandr --output DVI-1 --primary
+xrandr --output DVI-1 --mode 1920x1200
+redshiftgui -n &
+urxvtd -q -o -f
 
-exec ck-launch-session dbus-launch openbox-session
+~/.fehbg
+~/.dotfiles/_bin/dzconky
+mpd ~/.mpdconf
+
+exec dbus-launch xmonad
