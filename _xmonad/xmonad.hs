@@ -6,6 +6,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
@@ -22,6 +23,7 @@ main = do
         
         , layoutHook            = myLayoutHook
         , logHook               = myLogHook dzen >> setWMName "LG3D" >> takeTopFocus
+        , manageHook            = myManageHook
         
         , normalBorderColor     = myNormalBorderColor
         , focusedBorderColor    = myFocusedBorderColor
@@ -39,6 +41,11 @@ myKeys (XConfig {modMask = modm}) = M.fromList $
     , ((0, 0x1008ff11), spawn "amixer set Master 4-")
     , ((0, 0x1008ff13), spawn "amixer set Master 4+")
     ]
+
+myManageHook = composeAll
+    [ className =? "mplayer2"      --> doFloat] 
+    <+> composeOne
+        [ isFullscreen -?> doFullFloat ]
 
 myLayoutHook    = smartBorders $ avoidStruts $ tiled ||| Mirror tiled ||| Full
     where tiled = ResizableTall 1 (2/100) (1/2) []
