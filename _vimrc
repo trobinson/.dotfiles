@@ -13,7 +13,7 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
-Bundle 'bdd/vim-scala'
+Bundle 'derekwyatt/vim-scala'
 " vim-scripts repos
 Bundle 'xoria256.vim'
 Bundle 'peaksea'
