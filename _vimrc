@@ -1,73 +1,68 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible
+filetype off
 
-set runtimepath=~/.vim/bundle/vundle/,~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
+"initialise vundle
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required! 
+"initialise powerline
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
+"plugins via vundle
 Bundle 'gmarik/vundle'
-
-" My Bundles here:
-"
-" original repos on github
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
-Bundle 'derekwyatt/vim-scala'
-" vim-scripts repos
-Bundle 'xoria256.vim'
-Bundle 'peaksea'
-Bundle 'Markdown'
-" non github repos
+Bundle 'jnurmine/Zenburn'
 
-filetype plugin indent on     " required! 
+filetype plugin indent on
 
+"disable extraneous files
 set nobackup
 set nowritebackup
 set noswapfile
 set viminfo=""
 
+"enable line numbers
 set number
 
-set smartindent
+"colorscheme settings
+set t_Co=256
+syntax enable
+colorscheme zenburn
+
+"avoid moving around wrapped lines
+nmap j gj
+nmap k gk
+
+"improve search highlighting
 set incsearch
 set ignorecase
 set smartcase
 set hlsearch
 nmap \q :nohlsearch<CR>
 
+"ctrl-p.vim settings
+nmap ; :CtrlPBuffer<CR>
+let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_switch_buffer = 0
+
+"easy NERDTree binding
+nmap \e :NERDTreeToggle<CR>
+
+"dealing with tabs
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-
-set guifont=Dina\ 12
-set t_Co=256
-set mouse=a
-set background=dark
-
-set cm=blowfish
-
-"cycle between buffers with C-n and C-p
-nmap <C-n> :bnext<CR>
-nmap <C-p> :bprev<CR>
-
-"open ctrlp.vim buffer with ;
-nmap ; :CtrlPBuffer<CR>
-
-syntax enable
-colorscheme xoria256
-
-autocmd FileType html :setlocal sw=2 ts=2 sts=2
-
-au BufNewFile,BufRead *.less set filetype=less
-au BufNewFile,BufRead *.gradle setf groovy
-
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = 'latex'
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_CompileRule_pdf = 'xelatex --synctex=-1 -src-specials -interaction=nonstopmode $*'
-let g:Tex_ViewRule_pdf= 'zathura'
-let g:Tex_MultipleCompileFormats = 'pdf,dvi'
+nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
+nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<CR>
+nmap \M :set noexpandtab tabstop=8 softtabstop=4 shiftwidth=4<CR>
+nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
+nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
