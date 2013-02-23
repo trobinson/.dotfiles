@@ -51,11 +51,11 @@ myLayoutHook    = smartBorders $ avoidStruts $ tiled ||| Mirror tiled ||| Full
     where tiled = ResizableTall 1 (2/100) (1/2) []
 myLogHook h     = dynamicLogWithPP $ defaultPP
     { ppCurrent           =   dzenColor "#3f3f3f" "#60b48a" . pad
-    , ppVisible           =   dzenColor "white" "#3f3f3f" . pad
-    , ppHidden            =   dzenColor "white" "#3f3f3f" . pad
-    , ppHiddenNoWindows   =   dzenColor "#709080" "#3f3f3f" . pad
+    , ppVisible           =   dzenColor "#3f3f3f" "#dcdccc" . pad
+    , ppHidden            =   dzenColor "#3f3f3f" "#dcdccc" . pad
+    , ppHiddenNoWindows   =   dzenColor "#dcdccc" "#3f3f3f" . pad
     , ppUrgent            =   dzenColor "#dca3a3" "#3f3f3f" . pad
-    , ppWsSep             =   " "
+    , ppWsSep             =   ""
     , ppSep               =   "  |  "
     , ppLayout            =   dzenColor "#94bff3" "#3f3f3f" . 
                                 (\x -> case x of

@@ -5,7 +5,8 @@ total_run_times 0
 use_spacer      none
 
 TEXT
-${battery} ${battery_time} \
+${execi 30 /home/tdr/.dotfiles/_bin/battery.sh} \
 ^i(/home/tdr/.dotfiles/_icons/spkr_01.xbm) ${execi 8 amixer get Master | grep "Mono:" | cut -d "[" -f2 | cut -d "]" -f1 } \
-^fg(\#FF0000)^i(/home/tdr/.dotfiles/_icons/info_01.xbm) ${loadavg 1 2 3}^fg() \
-^i(/home/tdr/.dotfiles/_icons/clock.xbm) ${time %a %b %d %I:%M%P }
+^fg(\#dca3a3)^i(/home/tdr/.dotfiles/_icons/info_01.xbm)^fg() ${loadavg 1 2 3} \
+^i(/home/tdr/.dotfiles/_icons/clock.xbm) ${time %a %b %d %I:%M%P} \
+^fg(\#94bff3)^i(/home/tdr/.dotfiles/_icons/arch.xbm)^fg() ${kernel} 
