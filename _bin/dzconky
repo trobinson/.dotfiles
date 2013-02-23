@@ -2,4 +2,4 @@ FG='#aaaaaa'
 BG='#1a1a1a'
 FONT='Envy Code R-10'
 
-conky | dzen2 -x 1000 -h 20 -w 600 -ta r -fn 'Envy Code R-10' &
+conky | dzen2 -x 1000 -h 20 -w 600 -ta r -fg '#dcdccc' -bg '#3f3f3f' -fn 'Envy Code R-10' &

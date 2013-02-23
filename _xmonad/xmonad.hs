@@ -30,14 +30,14 @@ main = do
         , borderWidth           = myBorderWidth
         }
 
-myDzenBar       = "dzen2 -y '0' -h '20' -w '1000' -ta 'l' -fg '#FFFFFF' -bg '#1b1d1e' -fn 'Envy Code R-10'"
+myDzenBar       = "dzen2 -y '0' -h '20' -w '1000' -ta 'l' -fg '#dcdccc' -bg '#3f3f3f' -fn 'Envy Code R-10'"
 myBitmapsDir    = "/home/tdr/.dotfiles/_icons"
 myTerminal      = "urxvtc"
 myWorkspaces    = map show [1..9]
 myModMask       = mod4Mask
 
 myKeys (XConfig {modMask = modm}) = M.fromList $
-    [ ((modm, xK_p), spawn "dmenu_run -nf '#ffffff' -nb '#1b1d1e' -sb '#de935f' -sf '#1b1d1e' -fn 'Envy Code R-10'")
+    [ ((modm, xK_p), spawn "dmenu_run -h 20 -nf '#dcdccc' -nb '#3f3f3f' -sb '#8cd0d3' -sf '#3f3f3f' -fn 'Envy Code R-10'")
     , ((0, 0x1008ff11), spawn "amixer set Master 4-")
     , ((0, 0x1008ff13), spawn "amixer set Master 4+")
     ]
@@ -50,14 +50,14 @@ myManageHook = composeAll
 myLayoutHook    = smartBorders $ avoidStruts $ tiled ||| Mirror tiled ||| Full
     where tiled = ResizableTall 1 (2/100) (1/2) []
 myLogHook h     = dynamicLogWithPP $ defaultPP
-    { ppCurrent           =   dzenColor "#de935f" "#1B1D1E" . pad
-    , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
-    , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
-    , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
-    , ppUrgent            =   dzenColor "#ff0000" "#1B1D1E" . pad
+    { ppCurrent           =   dzenColor "#3f3f3f" "#60b48a" . pad
+    , ppVisible           =   dzenColor "white" "#3f3f3f" . pad
+    , ppHidden            =   dzenColor "white" "#3f3f3f" . pad
+    , ppHiddenNoWindows   =   dzenColor "#709080" "#3f3f3f" . pad
+    , ppUrgent            =   dzenColor "#dca3a3" "#3f3f3f" . pad
     , ppWsSep             =   " "
     , ppSep               =   "  |  "
-    , ppLayout            =   dzenColor "#de935f" "#1B1D1E" . 
+    , ppLayout            =   dzenColor "#94bff3" "#3f3f3f" . 
                                 (\x -> case x of
                                     "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
                                     "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
@@ -65,7 +65,7 @@ myLogHook h     = dynamicLogWithPP $ defaultPP
                                     {-"Simple Float"              ->      "~"-}
                                     _                           ->      x
                                 )
-    , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
+    , ppTitle             =   (" " ++) . dzenColor "white" "#3f3f3f" . dzenEscape
     , ppOutput            =   hPutStrLn h
     }
 
