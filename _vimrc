@@ -13,6 +13,8 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'kien/ctrlp.vim'
 Bundle 'bdd/vim-scala'
 " vim-scripts repos
 Bundle 'xoria256.vim'
@@ -27,18 +29,36 @@ filetype plugin indent on     " required!
 set nobackup
 set nowritebackup
 set noswapfile
+set viminfo=""
+
 set number
+
 set smartindent
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+nmap \q :nohlsearch<CR>
+
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
 set guifont=Dina\ 12
 set t_Co=256
 set mouse=a
-set viminfo=""
 set background=dark
+
 set cm=blowfish
+
+"cycle between buffers with C-n and C-p
+nmap <C-n> :bnext<CR>
+nmap <C-p> :bprev<CR>
+
+"open ctrlp.vim buffer with ;
+nmap ; :CtrlPBuffer<CR>
+
 syntax enable
 colorscheme xoria256
 
