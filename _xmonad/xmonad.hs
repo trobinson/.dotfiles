@@ -30,7 +30,7 @@ main = do
         , borderWidth           = myBorderWidth
         }
 
-myDzenBar       = "dzen2 -x '1280' -y '0' -h '20' -w '1320' -ta 'l' -fg '#FFFFFF' -bg '#1b1d1e' -fn 'Envy Code R-10'"
+myDzenBar       = "dzen2 -x '0' -y '0' -h '20' -w '1320' -ta 'l' -fg '#FFFFFF' -bg '#1b1d1e' -fn 'Envy Code R-10'"
 myBitmapsDir    = "/home/tdr/.dotfiles/_icons"
 myTerminal      = "urxvtc"
 myWorkspaces    = map show [1..9]

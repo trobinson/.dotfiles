@@ -17,8 +17,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias pacman='sudo pacman-color'
-alias packer='packer-color'
+alias pacman='sudo pacman'
 
 alias srv='ssh 192.168.0.6'
 
@@ -33,8 +32,8 @@ export IDEA_JDK=/opt/java6
 
 function backup() 
 {
-    rsync -Pavzh --delete --ignore-existing /mnt/videos/ /media/Backup/videos/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
-    rsync -Pavzh --delete --ignore-existing /mnt/storage/ /media/Backup/storage/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
+    rsync -Pavzh --delete --ignore-existing /mnt/videos/ /mnt/backup/videos/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
+    rsync -Pavzh --delete --ignore-existing /mnt/storage/ /mnt/backup/storage/ --exclude=\$RECYCLE.BIN --exclude="System Volume Information"
 }
 
 

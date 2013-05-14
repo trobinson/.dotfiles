@@ -18,6 +18,8 @@ Bundle 'bdd/vim-scala'
 Bundle 'xoria256.vim'
 Bundle 'peaksea'
 Bundle 'Markdown'
+Bundle 'cpp.vim'
+Bundle 'a.vim'
 " non github repos
 
 filetype plugin indent on     " required! 
